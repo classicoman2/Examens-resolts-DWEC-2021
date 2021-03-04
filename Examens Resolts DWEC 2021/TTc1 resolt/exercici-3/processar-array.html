@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crono</title>
+    <style>
+      .ciclista {
+        font-size: 1.2em;
+        border: 1px solid grey;
+        margin: 3px;
+        padding: 2px 3px;
+        width: 200px;
+      }
+
+      .taronja {
+        color: orange;
+      }
+      .verd {
+        color: green;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Ciclistes:</h1>
+    <div id="divCiclistes"></div>
+  </body>
+
+  <script>
+    /***** dades per fer exercici *****/
+    let ciclistes = [
+      "tom wellens",
+      "mathieu van poel",
+      "jonas rickaert",
+      "kristian sbaragli",
+      "dries de bondt",
+      "tim merlier",
+      "otto vergaerde",
+      "dylan van baarle",
+    ];
+    /************************/
+
+    //Eliminar els que tenen 'van' a dins
+    ciclistes = ciclistes.filter((ciclista) => ciclista.indexOf("van") == -1);
+
+    // Passar a majúscules les inicials
+    ciclistes = ciclistes.map((ciclista) => {
+      return ciclista.charAt(0).toUpperCase() + ciclista.slice(1);
+    });
+
+    pintaCiclistes(ciclistes);
+
+    function pintaCiclistes(ciclistes) {
+      // Get parent
+      let parent = document.getElementById("divCiclistes");
+
+      for (c of ciclistes) {
+        //crea p
+        let p = document.createElement("p");
+        p.innerHTML = c;
+        // classes
+        p.className = "ciclista";
+        p.classList.add(c.charAt(0) == "T" ? "taronja" : "verd");
+
+        //afegir
+        parent.appendChild(p);
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercici 3: Pinta un quadrat cada segon</title>
+    <style>
+      #myCanvas {
+        margin: 20px;
+        background-color: beige;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+  </body>
+
+  <script>
+    /***** dades per fer exercici *****/
+    var quadrats = [
+      { x: 30, y: 380 },
+      { x: 340, y: 150 },
+      { x: 150, y: 150 },
+      { x: 180, y: 170 },
+      { x: 120, y: 120 },
+      { x: -15, y: 320 },
+      { x: 90, y: 70 },
+      { x: 380, y: 250 },
+      { x: 60, y: 50 },
+      { x: 210, y: 250 },
+      { x: 240, y: 220 },
+      { x: 270, y: 240 },
+    ];
+    /**********************************/
+
+    const RADI = 50;
+
+    //Context del Canvas
+    var ctx = document.getElementById("myCanvas").getContext("2d");
+
+    // Ordena Arrays
+    quadrats.sort((a, b) => {
+      return a.x - b.x;
+    });
+
+    // Filtra quadrats
+    quadrats = quadrats.filter(quadratDinsLimits);
+
+    // Pinta segon a segon
+    let interval = setInterval(pintaQuadratsInteriors, 1000);
+
+    var i = 0;
+
+    function pintaQuadratsInteriors() {
+      item = quadrats[i];
+      pintaQuadrat(item.x, item.y);
+      i++;
+
+      if (i >= quadrats.length) clearInterval(interval);
+    }
+
+    function pintaQuadrat(x, y) {
+      // Arc   https://www.w3schools.com/tags/canvas_arc.asp
+      ctx.strokeRect(x, y, RADI, RADI);
+    }
+
+    /**
+     * Determina si estic a dins dels límits
+     *
+     **/
+    function quadratDinsLimits(quadrat) {
+      if (quadrat.x < 0 || quadrat.x + RADI > 400) return false;
+      if (quadrat.y < 0 || quadrat.y + RADI > 400) return false;
+
+      return true;
+    }
+  </script>
+</html>
